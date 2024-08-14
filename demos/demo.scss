@@ -1,0 +1,370 @@
+@use "@ryze-digital/scss-utilities";
+@use "../index" as mega-menu;
+
+$_header-height-mobile: scss-utilities.rem-calc(70px);
+$_header-height-desktop: scss-utilities.rem-calc(90px);
+$_font-color: #340e0e;
+$_logo-color: #D82C2C;
+$_background-color: #f9f9f9;
+
+@include mega-menu.configure((
+    "mobile": (
+        "spacing": (
+            "block-start": $_header-height-mobile
+        )
+    ),
+    "desktop": (
+        "spacing": (
+            "block-start": $_header-height-desktop
+        ),
+        "wrapper": (
+            "max-inline-size": 110ch,
+            "padding": (
+                "block-start": 0.5rem,
+                "block-end": 2rem
+            )
+        ),
+        "first-level": (
+            "gap": scss-utilities.rem-calc(10),
+            "anchor": (
+                "padding": (
+                    "block-start": scss-utilities.rem-calc(5),
+                    "block-end": scss-utilities.rem-calc(5),
+                    "inline-start": scss-utilities.rem-calc(15),
+                    "inline-end": scss-utilities.rem-calc(15)
+                )
+            )
+        ),
+        "sub-level": (
+            "anchor": (
+                "padding": (
+                    "inline-start": scss-utilities.rem-calc(25),
+                    "inline-end": scss-utilities.rem-calc(25)
+                )
+            )
+        )
+    ),
+    "icons": (
+        "back": (
+            "icon": "\2039",
+            "spacing": 1rem
+        ),
+        "has-sub-level": (
+            "icon": "\203A",
+            "spacing": 1rem
+        ),
+        "close": (
+            "icon": "\2716",
+            "spacing": 1.5rem
+        )
+    )
+));
+
+@include scss-utilities.global-styles();
+
+.visually-hidden {
+    @include scss-utilities.visually-hidden();
+}
+
+.mega-menu {
+    .toggle {
+        @include mega-menu.toggle();
+        margin: {
+            inline: {
+                start: auto;
+            }
+        }
+    }
+    .level-wrapper {
+        @include mega-menu.level-wrapper();
+    }
+    a:not(.button),
+    button:not(.toggle) {
+        @include mega-menu.links();
+        transition: {
+            property: color, border-color;
+            duration: 100ms;
+            timing-function: ease;
+        }
+        border: {
+            top: none;
+            right: none;
+            bottom: {
+                width: 2px;
+                style: solid;
+                color: transparent;
+            }
+            left: none;
+        }
+        background: {
+            color: transparent;
+        }
+        color: $_font-color;
+        &:hover,
+        &:focus-visible {
+            color: $_logo-color;
+        }
+    }
+    .button {
+        transition: {
+            property: background-color;
+            duration: 100ms;
+            timing-function: ease;
+        }
+        background: {
+            color: $_logo-color;
+        }
+        display: inline-block;
+        color: #ffffff;
+        padding: {
+            block: {
+                start: scss-utilities.rem-calc(7px);
+                end: scss-utilities.rem-calc(8px);
+            }
+            inline: scss-utilities.rem-calc(20px);
+        }
+        border: {
+            radius: 1000px;
+        }
+        text: {
+            decoration: none;
+        }
+        &:hover,
+        &:focus {
+            background: {
+                color: $_font-color;
+            }
+        }
+    }
+    .title {
+        font: {
+            size: 1.25em;
+        }
+    }
+    ul {
+        li {
+            &:has(ul) > button {
+                @include mega-menu.button-has-sub-level() {
+                    inset: {
+                        block: {
+                            start: scss-utilities.em-calc(14px);
+                        }
+                    }
+                    @include scss-utilities.breakpoint(mega-menu.get("breakpoint")) {
+                        inset: {
+                            block: {
+                                start: scss-utilities.em-calc(10px);
+                            }
+                        }
+                    }
+                }
+            }
+            &:has(> .open) > button {
+                background: {
+                    color: $_background-color;
+                }
+                border: {
+                    bottom: {
+                        color: currentColor;
+                    }
+                }
+            }
+            &.is-active {
+                > {
+                    a,
+                    button {
+                        @include mega-menu.list-item-active();
+                    }
+                }
+            }
+        }
+    }
+    .back {
+        button {
+            @include mega-menu.button-back() {
+                inset: {
+                    block: {
+                        start: scss-utilities.em-calc(14px);
+                    }
+                }
+            }
+        }
+    }
+    .close {
+        display: flex;
+        button {
+            font: {
+                size: scss-utilities.rem-calc(14px);
+            }
+            margin: {
+                inline: {
+                    start: auto;
+                }
+            }
+            @include mega-menu.button-close() {
+                inset: {
+                    block: {
+                        start: scss-utilities.em-calc(20px);
+                    }
+                }
+                @include scss-utilities.breakpoint(mega-menu.get("breakpoint")) {
+                    inset: {
+                        block: {
+                            start: scss-utilities.em-calc(13px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .teaser {
+        @include mega-menu.teaser();
+        padding: {
+            inline: {
+                end: scss-utilities.rem-calc(25);
+            }
+        }
+    }
+    > .level-wrapper {
+        @include mega-menu.level-wrapper-level-1();
+        > ul {
+            @include mega-menu.list-level-1();
+            ul {
+                @include mega-menu.list-level-1-sub-lists();
+                @include mega-menu.invert-title-and-back();
+                a,
+                button {
+                    @include mega-menu.links-level-1-sub-levels();
+                }
+            }
+            > li {
+                > {
+                    a,
+                    button {
+                        @include mega-menu.links-level-1();
+                        background: {
+                            color: transparent;
+                        }
+                    }
+                }
+                > .level-wrapper {
+                    @include mega-menu.level-wrapper-level-2();
+                    &.open {
+                        box: {
+                            shadow: 0 15px 12px rgba(0,0,0,0.02);
+                        }
+                    }
+                    .level-wrapper {
+                        @include mega-menu.level-wrapper-level-2-sub-levels();
+                    }
+                }
+            }
+        }
+    }
+}
+
+body {
+    font: {
+        family: system-ui, sans-serif;
+    }
+    line: {
+        height: 1.4;
+    }
+    background: {
+        color: $_background-color;
+    }
+    color: $_font-color;
+}
+
+.logo {
+    display: block;
+}
+
+.wrapper {
+    padding: {
+        inline: mega-menu.get("desktop", "wrapper", "padding", "inline");
+    }
+    max: {
+        width: mega-menu.get("desktop", "wrapper", "max-inline-size");
+    }
+    margin: {
+        inline: auto;
+    }
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background: {
+        color: #ffffff;
+    }
+    @include scss-utilities.breakpoint("large") {
+        position: static;
+    }
+    .wrapper {
+        height: $_header-height-mobile;
+        display: flex;
+        justify: {
+            content: space-between;
+        }
+        align: {
+            items: center;
+        }
+        @include scss-utilities.breakpoint("large") {
+            height: $_header-height-desktop;
+        }
+    }
+}
+
+main {
+    .wrapper {
+        padding: {
+            block: 2rem;
+        }
+    }
+}
+
+.h1 {
+    margin: {
+        block: {
+            end: 1rem;
+        }
+    }
+}
+
+.h2 {
+    margin: {
+        block: {
+            end: 0.3rem;
+        }
+    }
+}
+
+p {
+    margin: {
+        block: {
+            end: 1rem;
+        }
+    }
+}
+
+.breadcrumb {
+    list: {
+        style: none;
+    }
+    display: flex;
+    font: {
+        size: 0.9em;
+    }
+    li {
+        &:not(:first-child) {
+            &::before {
+                content: "/";
+                display: inline-block;
+                margin: {
+                    inline: 0.5em;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,361 @@
+@use "@ryze-digital/scss-utilities";
+@use "config";
+@use "sass:math";
+
+@mixin level-wrapper() {
+    overflow: auto;
+    transition: {
+        property: translate, opacity;
+        duration: config.get("transition", "duration");
+        timing-function: ease;
+    }
+    translate: -100%;
+    list: {
+        style: none;
+    }
+    padding: {
+        block: {
+            start: config.get("mobile", "padding", "block-start");
+            end: config.get("mobile", "padding", "block-end");
+        }
+        inline: {
+            start: config.get("mobile", "padding", "inline-start");
+            end: config.get("mobile", "padding", "inline-end");
+        }
+    }
+    background: {
+        color: config.get("mobile", "background-color");
+    }
+    position: absolute;
+    inset: 0;
+    z: {
+        index: 1;
+    }
+    &.#{config.get("classes", "sub-level-open")} {
+        translate: 0;
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        overflow: visible;
+        padding: unset;
+        background: {
+            color: config.get("desktop", "background-color");
+        }
+    }
+}
+
+@mixin level-wrapper-level-1() {
+    $columns: config.get("desktop", "columns");
+    $columnWidth: math.div(100%, config.get("desktop", "columns"));
+    position: config.get("mobile", "position");
+    inset: {
+        block: {
+            start: config.get("mobile", "spacing", "block-start");
+            end: config.get("mobile", "spacing", "block-end");
+        }
+    }
+    translate: -100%;
+    background: {
+        color: config.get("mobile", "background-color");
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        transition: unset;
+        position: unset;
+        translate: unset;
+        background: {
+            color: unset;
+        }
+    }
+}
+
+@mixin level-wrapper-level-2() {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        transition: {
+            property: height;
+            duration: config.get("transition", "duration");
+            timing-function: ease;
+        }
+        translate: unset;
+        inset: {
+            block: {
+                start: config.get("desktop", "spacing", "block-start");
+                end: config.get("desktop", "spacing", "block-end");
+            }
+        }
+        display: grid;
+        grid: {
+            template: {
+                columns: repeat(config.get("desktop", "columns"), 1fr);
+            }
+        }
+        padding: {
+            inline: max(calc((100% - #{config.get("desktop", "wrapper", "max-inline-size")}) / 2 + #{config.get("desktop", "wrapper", "padding", "inline")}), #{config.get("desktop", "wrapper", "padding", "inline")});
+        }
+        overflow: hidden;
+        height: 0;
+        > * {
+            transition: {
+                property: opacity;
+                duration: config.get("transition", "duration");
+                timing-function: ease;
+            }
+            opacity: 0;
+        }
+        &.#{config.get("classes", "sub-level-open")} {
+            z: {
+                index: 2;
+            }
+            > * {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@mixin level-wrapper-level-2-sub-levels() {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        z: {
+            index: -1;
+        }
+        translate: 0;
+        opacity: 0;
+        pointer: {
+            events: none;
+        }
+        &.#{config.get("classes", "sub-level-open")} {
+            translate: 100%;
+            opacity: 1;
+            pointer: {
+                events: unset;
+            }
+        }
+    }
+}
+
+@mixin list-level-1($gap: config.get("desktop", "first-level", "gap")) {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        position: unset;
+        background: {
+            color: unset;
+        }
+        padding: unset;
+        display: flex;
+        gap: $gap;
+        > .#{config.get("classes", "close-menu-li")} {
+            display: none;
+        }
+    }
+}
+
+@mixin list-level-1-sub-lists() {
+    min: {
+        block: {
+            size: 100%;
+        }
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        position: relative;
+        background: {
+            color: inherit;
+        }
+        padding: {
+            block: {
+                start: config.get("desktop", "wrapper", "padding", "block-start");
+                end: config.get("desktop", "wrapper", "padding", "block-end");
+            }
+        }
+    }
+}
+
+@mixin button-back($icon: config.get("icons", "back", "icon"), $spacing: config.get("icons", "back", "spacing")) {
+    @if ($icon == null or $icon == "") {
+        @error "The config option icons.back.icon is not defined. You have to configure icons.back.icon in order to use this mixin.";
+    }
+    position: relative;
+    padding: {
+        inline: {
+            start: config.get("mobile", "anchor", "padding", "inline-start") + $spacing;
+        }
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        display: none;
+    }
+    &::before {
+        @include scss-utilities.icon($icon);
+        position: absolute;
+        inset: {
+            inline: {
+                start: config.get("mobile", "anchor", "padding", "inline-start");
+            }
+        }
+        @content;
+    }
+}
+
+@mixin button-has-sub-level($icon: config.get("icons", "has-sub-level", "icon"), $spacing: config.get("icons", "has-sub-level", "spacing"), $inline-end: config.get("mobile", "anchor", "padding", "inline-end")) {
+    @if ($icon == null or $icon == "") {
+        @error "The config option icons.has-sub-level.icon is not defined. You have to configure icons.has-sub-level.icon in order to use this mixin.";
+    }
+    position: relative;
+    z: {
+        index: 0;
+    }
+    padding: {
+        inline: {
+            end: config.get("mobile", "anchor", "padding", "inline-end") + $spacing;
+        }
+    }
+    &::after {
+        @include scss-utilities.icon($icon);
+        position: absolute;
+        inset: {
+            inline: {
+                end: $inline-end;
+            }
+        }
+        @content;
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        &:is(ul ul button[type="button"]) {
+            padding: {
+                inline: {
+                    end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end") + $spacing;
+                }
+            }
+        }
+        &:is(a:not(ul ul a), button:not(ul ul button)) {
+            position: unset;
+            &::after {
+                content: unset;
+            }
+        }
+    }
+}
+
+@mixin button-close($icon: config.get("icons", "close", "icon"), $spacing: config.get("icons", "close", "spacing"), $inline-end: config.get("mobile", "anchor", "padding", "inline-end")) {
+    @if ($icon == null or $icon == "") {
+        @error "The config option icons.close.icon is not defined. You have to configure icons.close.icon in order to use this mixin.";
+    }
+    position: relative;
+    padding: {
+        inline: {
+            end: config.get("mobile", "anchor", "padding", "inline-end") + $spacing;
+        }
+    }
+    &::after {
+        @include scss-utilities.icon($icon);
+        position: absolute;
+        inset: {
+            inline: {
+                end: $inline-end;
+            }
+        }
+        @content;
+    }
+    &:focus-visible {
+        clip: auto;
+        clip-path: none;
+        width: fit-content;
+        height: auto;
+    }
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        &:is(ul ul button[type="button"]) {
+            padding: {
+                inline: {
+                    end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end") + $spacing;
+                }
+            }
+        }
+    }
+}
+
+@mixin links() {
+    display: block;
+    width: 100%;
+    text: {
+        decoration: none;
+        align: start;
+    }
+    padding: {
+        block: {
+            start: config.get("mobile", "anchor", "padding", "block-start");
+            end: config.get("mobile", "anchor", "padding", "block-end");
+        }
+        inline: {
+            start: config.get("mobile", "anchor", "padding", "inline-start");
+            end: config.get("mobile", "anchor", "padding", "inline-end");
+        }
+    }
+}
+
+@mixin links-level-1() {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        padding: {
+            block: {
+                start: config.get("desktop", "first-level", "anchor", "padding", "block-start");
+                end: config.get("desktop", "first-level", "anchor", "padding", "block-end");
+            }
+            inline: {
+                start: config.get("desktop", "first-level", "anchor", "padding", "inline-start");
+                end: config.get("desktop", "first-level", "anchor", "padding", "inline-end");
+            }
+        }
+    }
+}
+
+@mixin links-level-1-sub-levels() {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        padding: {
+            block: {
+                start: config.get("desktop", "sub-level", "anchor", "padding", "block-start");
+                end: config.get("desktop", "sub-level", "anchor", "padding", "block-end");
+            }
+            inline: {
+                start: config.get("desktop", "sub-level", "anchor", "padding", "inline-start");
+                end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end");
+            }
+        }
+    }
+}
+
+@mixin toggle() {
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        display: none;
+    }
+}
+
+@mixin teaser() {
+    display: none;
+    @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        display: block;
+        padding: {
+            block: {
+                start: config.get("desktop", "wrapper", "padding", "block-start");
+                end: config.get("desktop", "wrapper", "padding", "block-end");
+            }
+        }
+    }
+}
+
+@mixin list-item-active() {
+    font: {
+        weight: config.get("active-font-weight");
+    }
+}
+
+@mixin invert-title-and-back() {
+    display: flex;
+    flex: {
+        direction: column;
+    }
+    > {
+        .#{config.get("classes", "sub-level-headline")} {
+            order: 1;
+        }
+        .#{config.get("classes", "close-sub-level-button")} {
+            order: 2;
+        }
+        li {
+            order: 3;
+        }
+    }
+}
