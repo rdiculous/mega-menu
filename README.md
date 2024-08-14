@@ -1,5 +1,7 @@
 # RYZE Digital Mega Menu
 
+![Run linter(s) workflow status](https://github.com/ryze-digital/mega-menu/actions/workflows/run-lint.yml/badge.svg)
+
 ## Install
 
 ```sh
