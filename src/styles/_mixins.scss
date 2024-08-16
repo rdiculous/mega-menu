@@ -45,7 +45,7 @@
 
 @mixin level-wrapper-level-1() {
     $columns: config.get("desktop", "columns");
-    $columnWidth: math.div(100%, config.get("desktop", "columns"));
+    $column-width: math.div(100%, config.get("desktop", "columns"));
     position: config.get("mobile", "position");
     inset: {
         block: {
@@ -167,7 +167,7 @@
 }
 
 @mixin button-back($icon: config.get("icons", "back", "icon"), $spacing: config.get("icons", "back", "spacing")) {
-    @if $icon == null or $icon == "" {
+    @if not $icon or $icon == "" {
         @error "The config option icons.back.icon is not defined. You have to configure icons.back.icon in order to use this mixin.";
     }
     position: relative;
@@ -192,7 +192,7 @@
 }
 
 @mixin button-has-sub-level($icon: config.get("icons", "has-sub-level", "icon"), $spacing: config.get("icons", "has-sub-level", "spacing"), $inline-end: config.get("mobile", "anchor", "padding", "inline-end")) {
-    @if $icon == null or $icon == "" {
+    @if not $icon or $icon == "" {
         @error "The config option icons.has-sub-level.icon is not defined. You have to configure icons.has-sub-level.icon in order to use this mixin.";
     }
     position: relative;
@@ -232,7 +232,7 @@
 }
 
 @mixin button-close($icon: config.get("icons", "close", "icon"), $spacing: config.get("icons", "close", "spacing"), $inline-end: config.get("mobile", "anchor", "padding", "inline-end")) {
-    @if $icon == null or $icon == "" {
+    @if not $icon or $icon == "" {
         @error "The config option icons.close.icon is not defined. You have to configure icons.close.icon in order to use this mixin.";
     }
     position: relative;

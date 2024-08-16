@@ -17,11 +17,6 @@ export class HeightEqualizer {
     #secondLevels;
 
     /**
-     * @type {object}
-     */
-    #breakpointProvider;
-
-    /**
      * @type {MediaQueryList}
      */
     #breakpoint;
@@ -29,12 +24,10 @@ export class HeightEqualizer {
     /**
      *
      * @param {object} options
-     * @param {object} breakpointProvider
      * @param {MediaQueryList} breakpoint
      */
-    constructor(options, breakpointProvider, breakpoint) {
+    constructor(options, breakpoint) {
         this.#options = options;
-        this.#breakpointProvider = breakpointProvider;
         this.#breakpoint = breakpoint;
         this.#secondLevels = this.#options.el.querySelectorAll('.level-wrapper:is(nav > .level-wrapper) > ul > li > .level-wrapper');
 

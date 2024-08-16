@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "@ryze-digital/scss-utilities";
 
-$_config: (
+$-config: (
     "breakpoint": "large",
     "transition": (
         "duration": 200ms
@@ -89,9 +89,9 @@ $_config: (
 );
 
 @mixin configure($config) {
-    $_config: map.deep-merge($_config, $config) !global;
+    $-config: map.deep-merge($-config, $config) !global;
 }
 
 @function get($key...) {
-    @return map.get($_config, $key...);
+    @return map.get($-config, $key...);
 }

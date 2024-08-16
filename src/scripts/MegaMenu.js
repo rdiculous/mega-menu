@@ -30,13 +30,13 @@ export class MegaMenu extends utils.Base {
     /**
      *
      * @param {object} options
-     * @param {HTMLElement} [options.el=document.querySelector('[data-mega-menu]')]
-     * @param {HTMLElement} [options.menuToggle=document.querySelector('[data-mega-menu-toggle]')]
-     * @param {string} [options.breakpoint='large']
+     * @param {HTMLElement} [options.el]
+     * @param {HTMLElement} [options.menuToggle]
+     * @param {string} [options.breakpoint]
      * @param {object} [options.classes]
-     * @param {string} [options.classes.levelWrapper='level-wrapper']
-     * @param {string} [options.classes.subLevelOpen='open']
-     * @param {string} [options.classes.activeItems='is-active']
+     * @param {string} [options.classes.levelWrapper]
+     * @param {string} [options.classes.subLevelOpen]
+     * @param {string} [options.classes.activeItems]
      */
     constructor(options) {
         super({
@@ -54,7 +54,7 @@ export class MegaMenu extends utils.Base {
         this.#subLevelTriggers = this.options.el.querySelectorAll('li:has(ul) > button');
         this.#breakpointProvider = new utils.BreakpointProvider();
         this.#breakpoint = window.matchMedia(`(min-width: ${this.#breakpointProvider.breakpoints[this.options.breakpoint]})`);
-        this.#heightEqualizer = new HeightEqualizer(this.options, this.#breakpointProvider, this.#breakpoint);
+        this.#heightEqualizer = new HeightEqualizer(this.options, this.#breakpoint);
         this.#activeItems = this.options.el.querySelectorAll(`.${this.options.classes.activeItems}`);
     }
 
