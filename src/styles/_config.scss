@@ -4,21 +4,21 @@
 $-config: (
     "breakpoint": "large",
     "transition": (
-        "duration": 200ms
+        "duration": 200ms,
     ),
     "icons": (
         "back": (
             "icon": null,
-            "spacing": null
+            "spacing": null,
         ),
         "has-sub-level": (
             "icon": null,
-            "spacing": null
+            "spacing": null,
         ),
         "close": (
             "icon": null,
-            "spacing": null
-        )
+            "spacing": null,
+        ),
     ),
     "active-font-weight": bold,
     "mobile": (
@@ -26,7 +26,7 @@ $-config: (
         "background-color": #ffffff,
         "spacing": (
             "block-start": scss-utilities.rem-calc(50),
-            "block-end": 0
+            "block-end": 0,
         ),
         "padding": (
             "block-start": scss-utilities.rem-calc(20),
@@ -39,23 +39,23 @@ $-config: (
                 "block-start": scss-utilities.rem-calc(12),
                 "block-end": scss-utilities.rem-calc(12),
                 "inline-start": scss-utilities.rem-calc(16),
-                "inline-end": scss-utilities.rem-calc(16)
-            )
-        )
+                "inline-end": scss-utilities.rem-calc(16),
+            ),
+        ),
     ),
     "desktop": (
         "background-color": #ffffff,
         "spacing": (
             "block-start": scss-utilities.rem-calc(100),
-            "block-end": unset
+            "block-end": unset,
         ),
         "wrapper": (
             "padding": (
                 "block-start": scss-utilities.rem-calc(20),
                 "block-end": scss-utilities.rem-calc(20),
-                "inline": scss-utilities.rem-calc(20)
+                "inline": scss-utilities.rem-calc(20),
             ),
-            "max-inline-size": 95ch
+            "max-inline-size": 95ch,
         ),
         "columns": 3,
         "first-level": (
@@ -65,9 +65,9 @@ $-config: (
                     "block-start": scss-utilities.rem-calc(4),
                     "block-end": scss-utilities.rem-calc(4),
                     "inline-start": scss-utilities.rem-calc(20),
-                    "inline-end": scss-utilities.rem-calc(20)
-                )
-            )
+                    "inline-end": scss-utilities.rem-calc(20),
+                ),
+            ),
         ),
         "sub-level": (
             "anchor": (
@@ -75,17 +75,17 @@ $-config: (
                     "block-start": scss-utilities.rem-calc(8),
                     "block-end": scss-utilities.rem-calc(8),
                     "inline-start": scss-utilities.rem-calc(16),
-                    "inline-end": scss-utilities.rem-calc(16)
-                )
-            )
-        )
+                    "inline-end": scss-utilities.rem-calc(16),
+                ),
+            ),
+        ),
     ),
     "classes": (
         "sub-level-open": "open",
         "sub-level-headline": "title",
         "close-sub-level-button": "back",
-        "close-menu-li": "close"
-    )
+        "close-menu-li": "close",
+    ),
 );
 
 @mixin configure($config) {
