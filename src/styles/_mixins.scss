@@ -69,6 +69,8 @@
 
 @mixin level-wrapper-level-2() {
     @include scss-utilities.breakpoint(config.get("breakpoint")) {
+        $max-inline-size: config.get("desktop", "wrapper", "max-inline-size");
+        $padding-inline: config.get("desktop", "wrapper", "padding", "inline");
         transition: {
             property: height;
             duration: config.get("transition", "duration");
@@ -88,21 +90,7 @@
             }
         }
         padding: {
-            inline: max(
-                calc(
-                    (
-                            100% -
-                                #{config.get(
-                                    "desktop",
-                                    "wrapper",
-                                    "max-inline-size"
-                                )}
-                        ) /
-                        2 +
-                        #{config.get("desktop", "wrapper", "padding", "inline")}
-                ),
-                #{config.get("desktop", "wrapper", "padding", "inline")}
-            );
+            inline: max(calc((100% - #{$max-inline-size}) / 2 + #{$padding-inline}), #{$padding-inline});
         }
         overflow: hidden;
         height: 0;
