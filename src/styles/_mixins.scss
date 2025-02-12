@@ -161,30 +161,21 @@
         }
         padding: {
             block: {
-                start: config.get(
-                    "desktop",
-                    "wrapper",
-                    "padding",
-                    "block-start"
-                );
+                start: config.get("desktop", "wrapper", "padding", "block-start");
                 end: config.get("desktop", "wrapper", "padding", "block-end");
             }
         }
     }
 }
 
-@mixin button-back(
-    $icon: config.get("icons", "back", "icon"),
-    $spacing: config.get("icons", "back", "spacing")
-) {
+@mixin button-back($icon: config.get("icons", "back", "icon"), $spacing: config.get("icons", "back", "spacing")) {
     @if not $icon or $icon == "" {
         @error "The config option icons.back.icon is not defined. You have to configure icons.back.icon in order to use this mixin.";
     }
     position: relative;
     padding: {
         inline: {
-            start: config.get("mobile", "anchor", "padding", "inline-start") +
-                $spacing;
+            start: config.get("mobile", "anchor", "padding", "inline-start") + $spacing;
         }
     }
     @include scss-utilities.breakpoint(config.get("breakpoint")) {
@@ -195,12 +186,7 @@
         position: absolute;
         inset: {
             inline: {
-                start: config.get(
-                    "mobile",
-                    "anchor",
-                    "padding",
-                    "inline-start"
-                );
+                start: config.get("mobile", "anchor", "padding", "inline-start");
             }
         }
         @content;
@@ -221,8 +207,7 @@
     }
     padding: {
         inline: {
-            end: config.get("mobile", "anchor", "padding", "inline-end") +
-                $spacing;
+            end: config.get("mobile", "anchor", "padding", "inline-end") + $spacing;
         }
     }
     &::after {
@@ -239,14 +224,7 @@
         &:is(ul ul button[type="button"]) {
             padding: {
                 inline: {
-                    end: config.get(
-                            "desktop",
-                            "sub-level",
-                            "anchor",
-                            "padding",
-                            "inline-end"
-                        ) +
-                        $spacing;
+                    end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end") + $spacing;
                 }
             }
         }
@@ -270,8 +248,7 @@
     position: relative;
     padding: {
         inline: {
-            end: config.get("mobile", "anchor", "padding", "inline-end") +
-                $spacing;
+            end: config.get("mobile", "anchor", "padding", "inline-end") + $spacing;
         }
     }
     &::after {
@@ -294,14 +271,7 @@
         &:is(ul ul button[type="button"]) {
             padding: {
                 inline: {
-                    end: config.get(
-                            "desktop",
-                            "sub-level",
-                            "anchor",
-                            "padding",
-                            "inline-end"
-                        ) +
-                        $spacing;
+                    end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end") + $spacing;
                 }
             }
         }
@@ -331,36 +301,12 @@
     @include scss-utilities.breakpoint(config.get("breakpoint")) {
         padding: {
             block: {
-                start: config.get(
-                    "desktop",
-                    "first-level",
-                    "anchor",
-                    "padding",
-                    "block-start"
-                );
-                end: config.get(
-                    "desktop",
-                    "first-level",
-                    "anchor",
-                    "padding",
-                    "block-end"
-                );
+                start: config.get("desktop", "first-level", "anchor", "padding", "block-start");
+                end: config.get("desktop", "first-level", "anchor", "padding", "block-end");
             }
             inline: {
-                start: config.get(
-                    "desktop",
-                    "first-level",
-                    "anchor",
-                    "padding",
-                    "inline-start"
-                );
-                end: config.get(
-                    "desktop",
-                    "first-level",
-                    "anchor",
-                    "padding",
-                    "inline-end"
-                );
+                start: config.get("desktop", "first-level", "anchor", "padding", "inline-start");
+                end: config.get("desktop", "first-level", "anchor", "padding", "inline-end");
             }
         }
     }
@@ -370,36 +316,12 @@
     @include scss-utilities.breakpoint(config.get("breakpoint")) {
         padding: {
             block: {
-                start: config.get(
-                    "desktop",
-                    "sub-level",
-                    "anchor",
-                    "padding",
-                    "block-start"
-                );
-                end: config.get(
-                    "desktop",
-                    "sub-level",
-                    "anchor",
-                    "padding",
-                    "block-end"
-                );
+                start: config.get("desktop", "sub-level", "anchor", "padding", "block-start");
+                end: config.get("desktop", "sub-level", "anchor", "padding", "block-end");
             }
             inline: {
-                start: config.get(
-                    "desktop",
-                    "sub-level",
-                    "anchor",
-                    "padding",
-                    "inline-start"
-                );
-                end: config.get(
-                    "desktop",
-                    "sub-level",
-                    "anchor",
-                    "padding",
-                    "inline-end"
-                );
+                start: config.get("desktop", "sub-level", "anchor", "padding", "inline-start");
+                end: config.get("desktop", "sub-level", "anchor", "padding", "inline-end");
             }
         }
     }
@@ -417,12 +339,7 @@
         display: block;
         padding: {
             block: {
-                start: config.get(
-                    "desktop",
-                    "wrapper",
-                    "padding",
-                    "block-start"
-                );
+                start: config.get("desktop", "wrapper", "padding", "block-start");
                 end: config.get("desktop", "wrapper", "padding", "block-end");
             }
         }
