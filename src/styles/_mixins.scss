@@ -34,6 +34,11 @@
     &.#{config.get("classes", "sub-level-open")} {
         translate: 0;
     }
+    &:has(.#{config.get("classes", "sub-level-open")}) {
+        @include scss-utilities.breakpoint(config.get("breakpoint"), "max") {
+            overflow: hidden;
+        }
+    }
     @include scss-utilities.breakpoint(config.get("breakpoint")) {
         overflow: visible;
         padding: unset;

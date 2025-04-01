@@ -151,6 +151,14 @@ export class MegaMenu extends utils.Base {
             this.#heightEqualizer.start();
         }
 
+        if (parentLevels > 0 && !this.#breakpoint.matches) {
+            const directParentLevel = this.#getParents(subLevel, '.level-wrapper')[0];
+
+            if (directParentLevel.querySelector('ul').offsetHeight > subLevel.querySelector('ul').offsetHeight) {
+                subLevel.style.transform = `translateY(${directParentLevel.scrollTop}px)`;
+            }
+        }
+
         subLevel.classList.add(this.options.classes.subLevelOpen);
         this.#setInert(subLevel, false);
 
@@ -185,6 +193,17 @@ export class MegaMenu extends utils.Base {
         if(parentLevels === 1) {
             this.#heightEqualizer.stop();
         }
+
+        if (parentLevels > 0 && !this.#breakpoint.matches) {
+            const handleTransitionEnd = (event) => {
+                if (event.propertyName === 'transform') {
+                    subLevel.style.transform = '';
+                    subLevel.removeEventListener('transitionend', handleTransitionEnd);
+                }
+            };
+
+            subLevel.addEventListener('transitionend', handleTransitionEnd);
+        }
     }
 
     /**
@@ -194,6 +213,7 @@ export class MegaMenu extends utils.Base {
     #closeAllSubLevels(parent = this.options.el) {
         parent.querySelectorAll(`.${this.options.classes.subLevelOpen}`).forEach((openElement) => {
             this.#closeSubLevel(openElement);
+            openElement.style.removeProperty('transform');
         });
     }
 
