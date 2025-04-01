@@ -438,24 +438,3 @@ p {
   display: inline-block;
   margin-inline: 0.5em;
 }
-
-@media screen and (max-width: 63.9875em) {
-  .mega-menu .level-wrapper {
-    background-color: pink;
-  }
-}
-@media screen and (max-width: 63.9875em) {
-  .mega-menu .level-wrapper .level-wrapper {
-    background-color: navajowhite;
-  }
-}
-@media screen and (max-width: 63.9875em) {
-  .mega-menu .level-wrapper .level-wrapper .level-wrapper {
-    background-color: aquamarine;
-  }
-}
-@media screen and (max-width: 63.9875em) {
-  .mega-menu .level-wrapper .level-wrapper .level-wrapper .level-wrapper {
-    background-color: cadetblue;
-  }
-}

@@ -196,7 +196,11 @@ export class MegaMenu extends utils.Base {
 
         if (parentLevels > 0 && !this.#breakpoint.matches) {
             const handleTransitionEnd = (event) => {
-                if (event.propertyName === 'transform') {
+                if (event.target !== subLevel) {
+                    return;
+                }
+
+                if (event.propertyName === 'translate') {
                     subLevel.style.transform = '';
                     subLevel.removeEventListener('transitionend', handleTransitionEnd);
                 }
